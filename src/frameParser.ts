@@ -1,11 +1,26 @@
 import cheerio from "cheerio";
 import { BASE_URL } from "./consts";
+import axios from "axios";
 export interface OgTags {
   [key: string]: string;
 }
 
 export class FrameParser {
   constructor() {}
+
+  fetchPageContents = async (url: string): Promise<string> => {
+    if (!/^https?:\/\//i.test(url)) {
+      throw new Error('Invalid URL: URL must start with http:// or https://')
+    }
+  
+    try {
+      const response = await axios.get(url)
+      return response.data // Return the HTML content of the page
+    } catch (error) {
+      console.error('Failed to fetch page contents:', error)
+      throw new Error('Failed to fetch page contents.')
+    }
+  }
 
   parseOgTagsFromPageContents = (html: string): OgTags => {
     const $ = cheerio.load(html);
