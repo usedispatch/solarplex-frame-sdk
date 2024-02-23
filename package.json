@@ -1,5 +1,5 @@
 {
-  "name": "@usedispatch/solarplex-frames-sdk",
+  "name": "@usedispatch/solarplex-frame-sdk",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
