@@ -14,6 +14,7 @@
   "keywords": [],
   "author": "solarplex",
   "license": "ISC",
+  "files": ["dist/**"],
   "dependencies": {
     "@usedispatch/atproto-api": "0.7.8",
     "axios": "^1.6.7",
