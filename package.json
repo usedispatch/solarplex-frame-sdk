@@ -12,7 +12,7 @@
     "start": "node dist/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "solarplex",
   "license": "ISC",
   "dependencies": {
     "@usedispatch/atproto-api": "0.7.8",
