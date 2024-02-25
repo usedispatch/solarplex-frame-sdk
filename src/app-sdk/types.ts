@@ -1,11 +1,15 @@
 export interface FrameData {
     buttonIndex: number;
     inputText: string;
-    url: string;
-    // TBD
-    // atproto post ID
-    // interactor stats (liked, RTd, followed)
-    // TBD
+    url: string; // post_url
+    // metadata about the post
+    itemCid?: string; // post CID in which frame is embedded
+    itemUri?: string; // post URI in which frame is embedded
+    did: string; // interactor
+    author?: string; // creator of frame
+    likedPost?: boolean;
+    repostedPost?: boolean;
+    followsPoster?: boolean;
   }
   
   // TODO(viksit): make this more like FC frames by

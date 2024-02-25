@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { FrameParser } from '../frameParser';
+import { FrameParser, OgTags } from '../frameParser';
 import { getFrameMetadata} from '../app-sdk/getFrameMetadata';
 import fs from 'fs';
 import path from 'path';
-
 
 
 jest.mock('axios');
@@ -16,7 +15,7 @@ const frameUrl = 'https://solarplex-frame-demo.vercel.app/';
 
 
 
-describe('FrameParser with YouTube URL', () => {
+describe('FrameParser with diff urls', () => {
   let frameParser: FrameParser;
 
   beforeEach(async () => {
@@ -116,6 +115,28 @@ describe('FrameParser with YouTube URL', () => {
     });
     
   });
+
+  it('correctly parses buttons and their actions from fetched metadata', () => {
+    const fetchedMeta: OgTags = {
+      "sp:frame": "vNext",
+      "sp:frame:image": "https://example.com/image.png",
+      "sp:frame:button:1": "Button Label 1",
+      "sp:frame:button:1:action": "post_redirect",
+      "sp:frame:button:2": "Button Label 2",
+      // assuming button 2 does not have an explicit action, so it defaults to "post"
+      "sp:frame:post_url": "https://example.com/api/frame-redirect",
+      "og:title": "Example Title"
+    };
+
+    const expectedButtons = [
+      { index: 1, label: "Button Label 1", action: "post_redirect" },
+      { index: 2, label: "Button Label 2", action: "post" }
+    ];
+
+    const buttons = frameParser.parseButtonsFromFetchedMeta(fetchedMeta);
+    expect(buttons).toEqual(expectedButtons);
+  });
+
 });
 
   
