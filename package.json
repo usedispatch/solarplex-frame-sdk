@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "tsc --declaration",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "solarplex",
@@ -23,8 +24,11 @@
     "cheerio": "1.0.0-rc.12"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.19",
     "@types/node-fetch": "^2.6.11",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
   }
 }
