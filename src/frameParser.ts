@@ -6,8 +6,11 @@ export interface OgTags {
 }
 
 export class FrameParser {
-  constructor() {}
+  private proxyBaseUrl: string;
 
+  constructor(proxyBaseUrl: string = BASE_URL) {
+    this.proxyBaseUrl = proxyBaseUrl;
+  }
   fetchPageContents = async (url: string): Promise<string> => {
     if (!/^https?:\/\//i.test(url)) {
       throw new Error('Invalid URL: URL must start with http:// or https://')
@@ -45,8 +48,13 @@ export class FrameParser {
   createFrameFromOGTags = (
     fetchedMeta: OgTags,
     url: string,
-    serviceUrl: string = BASE_URL
+    serviceUrl: string = this.proxyBaseUrl 
   ) => {
+
+    // check if the url has frame tags
+    // if not, we'll only return an empty frame
+    const hasFrameTags = Object.keys(fetchedMeta).some(key => key.startsWith('sp:frame'));
+
     const buttons = Object.keys(fetchedMeta)
       .filter((key) => key.startsWith("sp:frame:button:"))
       .map((key) => {
@@ -60,34 +68,40 @@ export class FrameParser {
       })
       .sort((a, b) => a.index - b.index); // ensure buttons are in order
 
+    // TODO(viksit): add frame validation here
+    const frameResponse = hasFrameTags? {
+      version: fetchedMeta["sp:frame"] || "vNext",
+      image: this.proxyImage(fetchedMeta["sp:frame:image"] || "", serviceUrl),
+      post_url: fetchedMeta["sp:frame:post_url"] || "",
+      input: { text: fetchedMeta["sp:frame:input:text"] || "" },
+      buttons: buttons,
+      refresh_period: fetchedMeta["sp:frame:refresh_period"],
+    } : {}
+
+    const ogTagsResponse = {
+      error: "",
+      likely_type: fetchedMeta["sp:frame"] ? "frame" : "html",
+      url: url,
+      title: fetchedMeta["og:title"] || "",
+      description: fetchedMeta["og:description"] || "",
+      image: this.proxyImage(fetchedMeta["og:image"] || "", serviceUrl),
+    }
+    
     // TODO(zfaizal2): strong typing everywhere
-    // resuse the splx.defs types here
-    const frameResponse = {
+    // reuse the splx.defs types here
+    const response = {
       result: {
         success: true,
-        frame: {
-          version: fetchedMeta["sp:frame"] || "vNext",
-          image: this.proxyImage(fetchedMeta["sp:frame:image"] || "", serviceUrl),
-          post_url: fetchedMeta["sp:frame:post_url"] || "",
-          input: { text: fetchedMeta["sp:frame:input:text"] || "" },
-          buttons: buttons,
-          refresh_period: fetchedMeta["sp:frame:refresh_period"],
-        },
-        ogTags: {
-          error: "",
-          likely_type: fetchedMeta["sp:frame"] ? "frame" : "html",
-          url: url,
-          title: fetchedMeta["og:title"] || "",
-          description: fetchedMeta["og:description"] || "",
-          image: this.proxyImage(fetchedMeta["og:image"] || "", serviceUrl),
-        },
+        isFrame: hasFrameTags,
+        frame: frameResponse,
+        ogTags: ogTagsResponse
       },
     };
 
-    return frameResponse;
+    return response;
   };
 
-  proxyImage = (imageUrl: string, baseUrl: string = BASE_URL) => {
+  proxyImage = (imageUrl: string, baseUrl: string = this.proxyBaseUrl ) => {
     const proxiedImageUrl = `${baseUrl}/imgproxy?url=${encodeURIComponent(
       imageUrl
     )}`;
