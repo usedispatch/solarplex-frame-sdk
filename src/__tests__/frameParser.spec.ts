@@ -23,11 +23,9 @@ describe('FrameParser with diff urls', () => {
 
     const mockedYoutubeFilePath = path.join(__dirname, 'mockedYoutubeResponse.html');
     const mockedYoutubeResponse = await fs.promises.readFile(mockedYoutubeFilePath, { encoding: 'utf-8' });
-    // mockedAxios.get.mockResolvedValue({ data: mockedHtmlResponse });
 
     const mockedFrameFilePath = path.join(__dirname, 'frameResponse.html');
     const mockedFrameResponse = await fs.promises.readFile(mockedFrameFilePath, { encoding: 'utf-8' });
-    // mockedAxios.get.mockResolvedValue({ data: mockedFrameFilePath });
 
     mockedAxios.get.mockImplementation((url) => {
       if (url === youtubeUrl) {
