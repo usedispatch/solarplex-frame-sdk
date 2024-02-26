@@ -12,6 +12,7 @@ const TEST_PROXY_URL = 'http://local.proxy.com';
 const NEXT_PUBLIC_URL = 'http://local.server.com';
 const youtubeUrl = 'https://www.youtube.com/watch?v=TWTmSlxYJTI';
 const frameUrl = 'https://solarplex-frame-demo.vercel.app/';
+const tensorUrl = 'https://www.tensor.trade/trade/jules_l_splx'
 
 
 
@@ -27,11 +28,17 @@ describe('FrameParser with diff urls', () => {
     const mockedFrameFilePath = path.join(__dirname, 'frameResponse.html');
     const mockedFrameResponse = await fs.promises.readFile(mockedFrameFilePath, { encoding: 'utf-8' });
 
+    const mockedTensorFilePath = path.join(__dirname, 'tensor.html');
+    const mockedTensorResponse = await fs.promises.readFile(mockedTensorFilePath, { encoding: 'utf-8' });
+
+
     mockedAxios.get.mockImplementation((url) => {
       if (url === youtubeUrl) {
         return Promise.resolve({ data: mockedYoutubeResponse });
       } else if (url === frameUrl) {
         return Promise.resolve({ data: mockedFrameResponse });
+      } else if (url === tensorUrl) {
+        return Promise.resolve({ data: mockedTensorResponse });
       }
       return Promise.reject(new Error('not found'));
     });
@@ -133,6 +140,18 @@ describe('FrameParser with diff urls', () => {
 
     const buttons = frameParser.parseButtonsFromFetchedMeta(fetchedMeta);
     expect(buttons).toEqual(expectedButtons);
+  });
+
+  it('correctly parses normal links', async () => {
+    const ogTags = await frameParser.parseOgTagsFromPageContents(await frameParser.fetchPageContents(tensorUrl));
+    expect(ogTags).toEqual({
+      'og:url': 'https://www.tensor.trade',
+      'og:type': 'website',
+      'og:title': "Tensor | Solana's Leading NFT Marketplace",
+      'og:description': 'Tensor is the #1 NFT Marketplace on Solana. Backed by Placeholder VC, Solana Ventures, and Solana founders Toly and Raj.',
+      'og:image': 'https://i.ibb.co/ZMRt7cp/tt.png'
+    })
+
   });
 
 });
