@@ -9,12 +9,14 @@ export interface FrameData {
     author?: string; // creator of frame
     likedPost?: boolean;
     repostedPost?: boolean;
-    followsPoster?: boolean;
+    followsAuthor?: boolean;
+    linkedWallet?: string; // linked Solarplex wallet
+    connectedWallet?: string; // currently connected wallet
   }
   
   // TODO(viksit): make this more like FC frames by
-  // - support untrusted data
   // - supported signed trusted data as bytes
+  
   /**
    * When Solarplex makes a request to the external link 
    * requests follow this format
