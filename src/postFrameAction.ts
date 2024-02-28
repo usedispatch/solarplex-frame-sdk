@@ -12,6 +12,8 @@ export async function callPostFrameAction({
   followsAuthor,
   linkedWallet,
   connectedWallet,
+  likedPost,
+  repostedPost,
   ctx 
 }) {
   // console.log('postFrameAction:', {
@@ -37,6 +39,8 @@ export async function callPostFrameAction({
       followsAuthor: followsAuthor,
       linkedWallet: linkedWallet,
       connectedWallet: connectedWallet,
+      likedPost: likedPost,
+      repostedPost: repostedPost,
     },
   };
 
