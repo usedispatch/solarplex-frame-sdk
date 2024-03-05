@@ -4,6 +4,11 @@ This SDK helps write applications for Solarplex Frames.
 
 A great place to start would be the demo app at https://github.com/usedispatch/solarplex-polls-demo and the example app at https://github.com/usedispatch/solarplex-frame-demo
 
+Validate your frames at 
+
+https://www.solarplex.xyz/developer/frames
+
+<img width="1174" alt="image" src="https://github.com/usedispatch/solarplex-frame-sdk/assets/198669/b6c8c385-29cf-4df4-990a-c39b98db99d9">
 
 # A Frame in 100 lines (or less)
 
