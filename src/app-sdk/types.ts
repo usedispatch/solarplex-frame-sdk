@@ -12,6 +12,7 @@ export interface FrameData {
     followsAuthor?: boolean;
     linkedWallet?: string; // linked Solarplex wallet
     connectedWallet?: string; // currently connected wallet
+    txnSignature?: string; // signature of the transaction
   }
   
   // TODO(viksit): make this more like FC frames by
