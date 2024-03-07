@@ -28,10 +28,16 @@ export interface FrameData {
     };
   
   }
+
+  export type FrameTransactionResponse = {
+    encodedTxn: string;
+    lastValidBlockHeight: number;
+  };
   
   export type FrameButtonMetadata = {
     label: string;
-    action?: 'post' | 'post_redirect';
+    action?: 'post' | 'post_redirect' | 'txn';
+    post_url?: string;
   };
   
   export type FrameInputMetadata = {

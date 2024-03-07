@@ -31,7 +31,12 @@ describe('postFrameAction spec', () => {
       itemUri: "at://did:plc:f5iawtht7iqiy3muxrdjfcee/app.bsky.feed.post/3kme5bqg3zk2x",
       author: "did:plc:f5iawtht7iqiy3muxrdjfcee",
       did: "did:plc:f5iawtht7iqiy3muxrdjfcee",
-      followsAuthor: 1
+      linkedWallet: "",
+      connectedWallet: "",
+      likedPost: true,
+      repostedPost: false,
+      followsAuthor: 1,
+      txnSignature: ""
     };
     
     const res = await callPostFrameAction({...data, ctx});
@@ -55,7 +60,12 @@ describe('postFrameAction spec', () => {
       itemUri: "at://did:plc:f5iawtht7iqiy3muxrdjfcee/app.bsky.feed.post/3kme5bqg3zk2x",
       author: "did:plc:f5iawtht7iqiy3muxrdjfcee",
       did: "did:plc:f5iawtht7iqiy3muxrdjfcee",
-      followsAuthor: 1
+      linkedWallet: "",
+      connectedWallet: "",
+      likedPost: true,
+      repostedPost: false,
+      followsAuthor: 1,
+      txnSignature: ""
     };
     
     const res = await callPostFrameAction({...data, ctx});
@@ -114,7 +124,12 @@ describe('postFrameAction spec', () => {
       itemUri: "at://did:plc:f5iawtht7iqiy3muxrdjfcee/app.bsky.feed.post/3kme5bqg3zk2x",
       author: "did:plc:f5iawtht7iqiy3muxrdjfcee",
       did: "did:plc:f5iawtht7iqiy3muxrdjfcee",
-      followsAuthor: 1
+      linkedWallet: "",
+      connectedWallet: "",
+      likedPost: true,
+      repostedPost: false,
+      followsAuthor: 1,
+      txnSignature: ""
     };
   
     const res = await callPostFrameAction({...data, ctx});
