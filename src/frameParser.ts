@@ -10,6 +10,7 @@ export interface Button {
   index: number;
   label: string;
   action: string;
+  post_url?: string;
 }
 export class FrameParser {
   private proxyBaseUrl: string;
@@ -81,6 +82,8 @@ export class FrameParser {
             buttonInfo[index].label = fetchedMeta[key];
           } else if (property === "action") {
             buttonInfo[index].action = fetchedMeta[key];
+          } else if (property === "post_url") {
+            buttonInfo[index].post_url = fetchedMeta[key];
           }
         }
       });
@@ -90,6 +93,7 @@ export class FrameParser {
         index: button.index,
         label: button.label,
         action: button.action,
+        post_url: button.post_url,
       })).sort((a, b) => a.index - b.index);
       
       return buttons;

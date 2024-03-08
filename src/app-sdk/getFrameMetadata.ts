@@ -31,6 +31,9 @@ export const getFrameMetadata = function ({
       if (button.action) {
         metadata[`sp:frame:button:${index + 1}:action`] = button.action;
       }
+      if (button.post_url) {
+        metadata[`sp:frame:button:${index + 1}:post_url`] = button.post_url;
+      }
     });
   }
   if (post_url) {

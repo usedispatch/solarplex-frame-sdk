@@ -12,6 +12,7 @@ export interface FrameData {
     followsAuthor?: boolean;
     linkedWallet?: string; // linked Solarplex wallet
     connectedWallet?: string; // currently connected wallet
+    txnSignature?: string; // signature of the transaction
   }
   
   // TODO(viksit): make this more like FC frames by
@@ -28,10 +29,16 @@ export interface FrameData {
     };
   
   }
+
+  export type FrameTransactionResponse = {
+    encodedTxn: string;
+    lastValidBlockHeight: number;
+  };
   
   export type FrameButtonMetadata = {
     label: string;
-    action?: 'post' | 'post_redirect';
+    action?: 'post' | 'post_redirect' | 'txn';
+    post_url?: string;
   };
   
   export type FrameInputMetadata = {
