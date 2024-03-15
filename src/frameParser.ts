@@ -10,6 +10,7 @@ export interface Button {
   index: number;
   label: string;
   action: string;
+  target?: string;
   post_url?: string;
 }
 export class FrameParser {
@@ -78,12 +79,15 @@ export class FrameParser {
           const property = keyParts.length > 4 ? keyParts[4] : "label";
           
           if (!buttonInfo[index]) buttonInfo[index] = { index, label: "", action: "post" };
+          console.log("buttonInfo", buttonInfo);
           if (property === "label") {
             buttonInfo[index].label = fetchedMeta[key];
           } else if (property === "action") {
             buttonInfo[index].action = fetchedMeta[key];
           } else if (property === "post_url") {
             buttonInfo[index].post_url = fetchedMeta[key];
+          } else if (property === "target") {
+            buttonInfo[index].target = fetchedMeta[key];
           }
         }
       });
@@ -94,6 +98,7 @@ export class FrameParser {
         label: button.label,
         action: button.action,
         post_url: button.post_url,
+        target: button.target
       })).sort((a, b) => a.index - b.index);
       
       return buttons;

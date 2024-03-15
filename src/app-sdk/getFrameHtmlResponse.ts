@@ -32,6 +32,12 @@ function getFrameHtmlResponse({
         if (button.action) {
           buttonHtml += `<meta property="sp:frame:button:${index + 1}:action" content="${button.action}" />`;
         }
+        if (button.post_url) {
+          buttonHtml += `<meta property="sp:frame:button:${index + 1}:post_url" content="${button.post_url}" />`;
+        }
+        if (button.target) {
+          buttonHtml += `<meta property="sp:frame:button:${index + 1}:target" content="${button.target}" />`;
+        }
         return buttonHtml;
       })
       .join('');

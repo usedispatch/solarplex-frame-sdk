@@ -81,12 +81,7 @@ describe('postFrameAction spec', () => {
       buttons: expect.arrayContaining([
         expect.objectContaining({
           index: 1,
-          label: "🌲 Text: button 1 was clicked",
-          action: "post"
-        }),
-        expect.objectContaining({
-          index: 2,
-          label: "Button 2",
+          label: "🌲 You submitted the text: ",
           action: "post"
         })
       ])
@@ -100,8 +95,7 @@ describe('postFrameAction spec', () => {
         post_url: expect.any(String),
         input: { text: "" },
         buttons: [
-          { index: 1, label: "🌲 Text: button 1 was clicked", action: "post" },
-          { index: 2, label: "Button 2", action: "post" }
+          { index: 1, label: "🌲 You submitted the text: ", action: "post" },
         ]
       },
       ogTags: {
@@ -133,6 +127,7 @@ describe('postFrameAction spec', () => {
     };
   
     const res = await callPostFrameAction({...data, ctx});
+    console.log(res.body.result.frame);
     expect(res.body.result).toEqual({
       success: true,
       isFrame: true,
@@ -151,8 +146,9 @@ describe('postFrameAction spec', () => {
           }),
           expect.objectContaining({
             index: 2,
-            label: "🌲 Text: button 2 was clicked",
-            action: "post"
+            label: "🌲 Text: view transaction on xray!",
+            action: "post_redirect",
+            post_url: expect.any(String),
           })
         ],
         refresh_period: undefined

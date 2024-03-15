@@ -37,8 +37,9 @@ export interface FrameData {
   
   export type FrameButtonMetadata = {
     label: string;
-    action?: 'post' | 'post_redirect' | 'txn';
+    action?: 'post' | 'post_redirect' | 'txn' | 'link';
     post_url?: string;
+    target?: string;
   };
   
   export type FrameInputMetadata = {
