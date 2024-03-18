@@ -127,6 +127,7 @@ describe('postFrameAction spec', () => {
     };
   
     const res = await callPostFrameAction({...data, ctx});
+    console.log(res.body.result);
     expect(res.body.result).toEqual({
       success: true,
       isFrame: true,
@@ -141,14 +142,26 @@ describe('postFrameAction spec', () => {
           expect.objectContaining({
             index: 1,
             label: "Button 1",
-            action: "post"
+            action: "post",
+            post_url: undefined,
+            target: undefined,
+            text: undefined
           }),
           expect.objectContaining({
             index: 2,
             label: "🌲 Text: view transaction on xray!",
             action: "post_redirect",
             post_url: expect.any(String),
-          })
+            target: undefined,
+            text: undefined 
+          }),
+          expect.objectContaining({
+            index: 3,
+            label: "Share transaction on Twitter",
+            text: expect.any(String),
+            action: "share",
+            target: undefined,
+          }),
         ],
         refresh_period: undefined
       }),
