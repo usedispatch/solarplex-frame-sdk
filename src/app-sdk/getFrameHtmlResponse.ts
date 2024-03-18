@@ -38,6 +38,9 @@ function getFrameHtmlResponse({
         if (button.target) {
           buttonHtml += `<meta property="sp:frame:button:${index + 1}:target" content="${button.target}" />`;
         }
+        if (button.text) {
+          buttonHtml += `<meta property="sp:frame:button:${index + 1}:text" content="${button.text}" />`;
+        }
         return buttonHtml;
       })
       .join('');
