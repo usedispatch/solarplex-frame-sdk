@@ -134,6 +134,9 @@ describe('FrameParser with diff urls', () => {
       "sp:frame:button:4": "Button Label 4",
       "sp:frame:button:4:action": "link",
       "sp:frame:button:4:target": "https://example.com/link",
+      "sp:frame:button:5": "Share text",
+      "sp:frame:button:5:action": "share",
+      "sp:frame:button:5:text": "text to share text",
       // assuming button 2 does not have an explicit action, so it defaults to "post"
       "sp:frame:post_url": "https://example.com/api/frame-redirect",
       "og:title": "Example Title"
@@ -143,7 +146,8 @@ describe('FrameParser with diff urls', () => {
       { index: 1, label: "Button Label 1", action: "post_redirect" },
       { index: 2, label: "Button Label 2", action: "post" },
       { index: 3, label: "txn button", action: "txn", post_url: "https://example.com/api/txn"},
-      { index: 4, label: "Button Label 4", action: "link", target: "https://example.com/link" }
+      { index: 4, label: "Button Label 4", action: "link", target: "https://example.com/link" },
+      { index: 5, label: "Share text", action: "share", text: "text to share text" }
     ];
 
     const buttons = frameParser.parseButtonsFromFetchedMeta(fetchedMeta);

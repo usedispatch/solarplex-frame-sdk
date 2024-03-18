@@ -80,7 +80,6 @@ export class FrameParser {
           const property = keyParts.length > 4 ? keyParts[4] : "label";
           
           if (!buttonInfo[index]) buttonInfo[index] = { index, label: "", action: "post" };
-          console.log("buttonInfo", buttonInfo);
           if (property === "label") {
             buttonInfo[index].label = fetchedMeta[key];
           } else if (property === "action") {
@@ -101,7 +100,8 @@ export class FrameParser {
         label: button.label,
         action: button.action,
         post_url: button.post_url,
-        target: button.target
+        target: button.target,
+        text: button.text
       })).sort((a, b) => a.index - b.index);
       
       return buttons;

@@ -127,7 +127,6 @@ describe('postFrameAction spec', () => {
     };
   
     const res = await callPostFrameAction({...data, ctx});
-    console.log(res.body.result.frame);
     expect(res.body.result).toEqual({
       success: true,
       isFrame: true,
