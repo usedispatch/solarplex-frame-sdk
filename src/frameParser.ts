@@ -12,6 +12,7 @@ export interface Button {
   action: string;
   target?: string;
   post_url?: string;
+  text?: string;
 }
 export class FrameParser {
   private proxyBaseUrl: string;
@@ -88,6 +89,8 @@ export class FrameParser {
             buttonInfo[index].post_url = fetchedMeta[key];
           } else if (property === "target") {
             buttonInfo[index].target = fetchedMeta[key];
+          } else if (property === "text") {
+            buttonInfo[index].text = fetchedMeta[key];
           }
         }
       });
